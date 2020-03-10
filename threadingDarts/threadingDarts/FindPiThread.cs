@@ -8,8 +8,33 @@ namespace threadingDarts
 {
     class FindPiThread
     {
-        int numDarts;
-        int hitCount;
-        Random throwGen = new Random();
+        private int numDarts;
+        private Random throwGen;
+        private int hitCount;
+
+        public FindPiThread(int nDart)
+        {
+            throwGen = new Random();    // A new random number generator instance is created for each thread.
+            numDarts = nDart;           // The number of darts to throw is fed into the constructor.
+            hitCount = 0;               // Before any darts are thrown, the number that have hit the board equals "0."
+        }
+
+        public int GetHitCount()
+        {
+            return hitCount;
+        }
+
+        public void throwDarts()
+        {
+            double x = 0;
+            double y = 0;
+            for (int i = 0; i < numDarts; i++)
+            {
+                x = throwGen.NextDouble(); // Generates a random double between 0.0 and 1.0 to represent the x-value of the dart's position
+                y = throwGen.NextDouble(); // Generates a random double between 0.0 and 1.0 to represent the y-value of the dart's position
+
+                if ((x * x) + (y * y) <= 1) hitCount++;
+            }
+        }
     }
 }
