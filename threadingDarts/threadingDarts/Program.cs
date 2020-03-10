@@ -24,7 +24,36 @@ namespace threadingDarts
             List<System.Threading.Thread> threadList = new List<System.Threading.Thread>(threadCount);  // Creates a list of threads
             List<FindPiThread> piThreadList = new List<FindPiThread>(threadCount);                      // Creates a list of classes for each thread to operate upon
 
+            // Both lists have a capacity equal to the user-specified threadCount integer
 
+            for (int i = 0; i < threadCount; i++)
+            {
+                FindPiThread fpt = new FindPiThread(dartCount);
+                piThreadList[i] = fpt;
+                System.Threading.Thread thr = new System.Threading.Thread(new System.Threading.ThreadStart(piThreadList[i].throwDarts));
+                threadList[i] = thr;
+
+                thr.Start();
+
+                System.Threading.Thread.Sleep(16);
+            }
+
+            for (int i = 0; i < threadCount; i++)
+            {
+                threadList[i].Join(); // This tells Main() to wait until every thread is done before continuing
+            }
+
+            int totalHitCount = 0;
+
+            for (int i = 0; i < threadCount; i++)
+            {
+                totalHitCount += piThreadList[i].GetHitCount();
+            }
+
+            Console.Write("For " + (dartCount * threadCount) + " darts, pi is evaluated as: ");
+            Console.WriteLine( 4 * ( totalHitCount / ( dartCount * threadCount )));
+
+            Console.ReadKey();
         }
     }
 }
