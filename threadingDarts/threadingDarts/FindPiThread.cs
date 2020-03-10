@@ -8,5 +8,8 @@ namespace threadingDarts
 {
     class FindPiThread
     {
+        int numDarts;
+        int hitCount;
+        Random throwGen = new Random();
     }
 }
