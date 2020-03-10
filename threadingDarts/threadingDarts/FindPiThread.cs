@@ -33,7 +33,8 @@ namespace threadingDarts
                 x = throwGen.NextDouble(); // Generates a random double between 0.0 and 1.0 to represent the x-value of the dart's position
                 y = throwGen.NextDouble(); // Generates a random double between 0.0 and 1.0 to represent the y-value of the dart's position
 
-                if ((x * x) + (y * y) <= 1) hitCount++;
+                if ((x * x) + (y * y) <= 1) hitCount++; // If the hypotenuse of the right triangle (with x and y being the length of the
+                                                        // triangle's legs) is less than or equal to 1, the dart lands within the circle.
             }
         }
     }
