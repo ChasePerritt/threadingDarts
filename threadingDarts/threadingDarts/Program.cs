@@ -53,7 +53,7 @@ namespace threadingDarts
                 
                 if (i == (threadCount - 1))
                 {
-                    estimationOfPi = Convert.ToDouble(4) * (Convert.ToDouble(totalHitCount) / (Convert.ToDouble(dartCount) * Convert.ToDouble(threadCount)));
+                    estimationOfPi = 4 * (Convert.ToDouble(totalHitCount) / (dartCount * threadCount));
 
                     Console.Write("For " + (dartCount * threadCount) + " darts, pi is evaluated as: ");
                     Console.WriteLine(estimationOfPi);
