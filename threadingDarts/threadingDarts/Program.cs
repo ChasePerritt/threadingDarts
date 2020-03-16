@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace threadingDarts
 {
@@ -21,21 +22,21 @@ namespace threadingDarts
             userInput = Console.ReadLine();
             threadCount = Convert.ToInt32(userInput);
 
-            List<System.Threading.Thread> threadList = new List<System.Threading.Thread>(threadCount);  // Creates a list of threads
-            List<FindPiThread> piThreadList = new List<FindPiThread>(threadCount);                      // Creates a list of classes for each thread to operate upon
+            List<Thread> threadList = new List<Thread>(threadCount);                // Creates a list of threads
+            List<FindPiThread> piThreadList = new List<FindPiThread>(threadCount);  // Creates a list of classes for each thread to operate upon
 
             // Both lists have a capacity equal to the user-specified threadCount integer
 
             for (int i = 0; i < threadCount; i++)
             {
                 FindPiThread fpt = new FindPiThread(dartCount);
-                piThreadList[i] = fpt;
-                System.Threading.Thread thr = new System.Threading.Thread(new System.Threading.ThreadStart(piThreadList[i].throwDarts));
-                threadList[i] = thr;
+                piThreadList.Add(fpt);
+                Thread thr = new Thread(new ThreadStart(piThreadList[i].throwDarts));
+                threadList.Add(thr);
 
                 thr.Start();
 
-                System.Threading.Thread.Sleep(16);
+                Thread.Sleep(16);
             }
 
             for (int i = 0; i < threadCount; i++)
