@@ -45,14 +45,20 @@ namespace threadingDarts
             }
 
             int totalHitCount = 0;
+            double estimationOfPi = 0;
 
             for (int i = 0; i < threadCount; i++)
             {
                 totalHitCount += piThreadList[i].GetHitCount();
-            }
+                
+                if (i == (threadCount - 1))
+                {
+                    estimationOfPi = Convert.ToDouble(4) * (Convert.ToDouble(totalHitCount) / (Convert.ToDouble(dartCount) * Convert.ToDouble(threadCount)));
 
-            Console.Write("For " + (dartCount * threadCount) + " darts, pi is evaluated as: ");
-            Console.WriteLine( 4 * ( totalHitCount / ( dartCount * threadCount )));
+                    Console.Write("For " + (dartCount * threadCount) + " darts, pi is evaluated as: ");
+                    Console.WriteLine(estimationOfPi);
+                }
+            }
 
             Console.ReadKey();
         }
